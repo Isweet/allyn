@@ -1,6 +1,5 @@
 {
   open Core
-  open Stdio
 
   open Lexing
   open Parser
@@ -49,11 +48,11 @@ rule token = parse
   (** Binary Arithmetic Operators *)
   | "+"        { PLUS }
 
-  (** Binary Relational Operators *)
+  (** Binary Arithmetic Relations *)
   | "<"        { LT }
 
   (** Comment *)
-  | "#"        { comment (lexeme_start_p lexbuf); token lexbuf }
+  | "#"        { comment (lexeme_start_p lexbuf) lexbuf; token lexbuf }
 
   (** EOF *)
   | eof        { EOF }

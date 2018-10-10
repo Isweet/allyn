@@ -1,9 +1,18 @@
 open Core
 
 type t =
+  { loc  : Section.t Option.t
+  ; node : t'
+  }
+
+and t' =
   | Number   of { value : Float.t }
   | Variable of { value : String.t }
-  | Binary   of { op : Boolean.Binary.Op.t
+  | ABinOp   of { op : Arith.Bin.Op.t
+                ; lhs : t
+                ; rhs : t
+                }
+  | ABinRel  of { op : Arith.Bin.Rel.t
                 ; lhs : t
                 ; rhs : t
                 }
