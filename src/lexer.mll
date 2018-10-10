@@ -17,10 +17,7 @@ let digit      = ['0'-'9']
 (* TODO(ins): Should be official OCaml float regex,
               so that `Float.to_string` is guaranteed to succeed. *)
 let number     = (digit | '.')+
-
 let var        = letter (letter | digit | [''' '_'])*
-
-let ext        = [ '+' ]
 
 (**********************************
  ***** Allyn Lexical Analysis *****
@@ -34,25 +31,32 @@ rule token = parse
   | newline    { new_line lexbuf; token lexbuf }
 
   (** Def *)
-  | "def"      { TDEF }
+  | "def"      { DEF }
 
   (** Extern *)
-  | "extern"   { TEXTERN }
+  | "extern"   { EXTERN }
 
   (** Number *)
-  | number     { TNUM (Float.of_string (lexeme lexbuf)) }
+  | number     { NUM (Float.of_string (lexeme lexbuf)) }
 
   (** Variable *)
-  | var        { TVAR (lexeme lexbuf) }
+  | var        { VAR (lexeme lexbuf) }
 
-  (** Ext *)
-  | ext        { TEXT (lexeme lexbuf) }
+  (** PARENS *)
+  | "("        { LPAREN }
+  | ")"        { RPAREN }
+
+  (** Binary Arithmetic Operators *)
+  | "+"        { PLUS }
+
+  (** Binary Relational Operators *)
+  | "<"        { LT }
 
   (** Comment *)
   | "#"        { comment (lexeme_start_p lexbuf); token lexbuf }
 
   (** EOF *)
-  | eof        { TEOF }
+  | eof        { EOF }
 
   (** Failure *)
   | _          { raise (SyntaxError (lexeme_start_p lexbuf, "Unexpected token.")) }
