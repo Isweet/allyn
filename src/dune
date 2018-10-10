@@ -1,0 +1,7 @@
+(library
+  (name allyn)
+  (libraries core stdio)
+  (preprocess (pps ppx_jane)))
+
+(ocamllex lexer)
+(menhir (modules parser))
