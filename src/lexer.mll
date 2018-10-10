@@ -45,6 +45,9 @@ rule token = parse
   | "("        { LPAREN }
   | ")"        { RPAREN }
 
+  (** COMMA *)
+  | ","        { COMMA }
+
   (** Binary Arithmetic Operators *)
   | "+"        { PLUS }
 
