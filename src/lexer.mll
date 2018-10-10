@@ -5,8 +5,6 @@
   open Lexing
   open Parser
 
-  open Var
-
   exception SyntaxError of Position.t * String.t
 }
 
@@ -45,7 +43,7 @@ rule token = parse
   | number     { TNUM (Float.of_string (lexeme lexbuf)) }
 
   (** Variable *)
-  | var        { TVAR (Var (lexeme lexbuf)) }
+  | var        { TVAR (lexeme lexbuf) }
 
   (** Ext *)
   | ext        { TEXT (lexeme lexbuf) }
