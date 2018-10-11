@@ -1,6 +1,6 @@
 (library
   (name allyn)
-  (libraries core stdio)
+  (libraries core stdio llvm llvm.analysis)
   (preprocess (pps ppx_jane)))
 
 (ocamllex lexer)

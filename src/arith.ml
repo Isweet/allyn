@@ -14,7 +14,6 @@ module Bin = struct
       | Add
       | Subtract
       | Mult
-      | And
   end
   module Rel = struct
     type t =
